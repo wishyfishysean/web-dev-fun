@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>THC Half-Life Calculator</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>THC Half-Life Calculator</h1>
+
+  <label>THC Consumed (mg):</label>
+  <input type="number" id="dose" value="20"><br><br>
+
+  <label>Half-life (hours):</label>
+  <input type="number" id="halflife" value="30"><br><br>
+
+  <label>Time since consumption (hours):</label>
+  <input type="number" id="time" value="0"><br><br>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <p id="output"></p>
+
+  <canvas id="chart" width="400" height="200"></canvas>
+
+  <script>
+    function calculate() {
+      const dose = parseFloat(document.getElementById("dose").value);
+      const halfLife = parseFloat(document.getElementById("halflife").value);
+      const time = parseFloat(document.getElementById("time").value);
+
+      // formula
+      const remaining = dose * Math.pow(0.5, time / halfLife);
+
+      document.getElementById("output").innerText = 
+        `Estimated THC remaining: ${remaining.toFixed(2)} mg`;
+
+      // Build data for chart (0–5 half-lives, e.g., ~150h if half-life=30h)
+      let dataX = [];
+      let dataY = [];
+      for (let t = 0; t <= halfLife*5; t+=1) {
+        dataX.push(t);
+        dataY.push(dose * Math.pow(0.5, t/halfLife));
+      }
+
+      new Chart(document.getElementById("chart"), {
+        type: "line",
+        data: {
+          labels: dataX,
+          datasets: [{
+            label: "THC in body (mg)",
+            data: dataY,
+            borderColor: "green",
+            borderWidth: 2,
+            fill: false
+          }]
+        }
+      });
+    }
+  </script>
+</body>
+</html>
