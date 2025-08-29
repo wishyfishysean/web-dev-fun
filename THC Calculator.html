@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>THC Half-life Calculator</title>
+    </head>
+    <body>
+        <h1>THC Half-Life Calculator</h1>
+
+        <!-- User Input fields -->
+         <label>THC Consumed (mg):</label>
+         <input type="number" id="dose" value="20"><br><br>
+
+         <label>Half-Life (hours):</label>
+         <input type="number" id="halflife" value="30"><br><br>
+
+         <label>Timesince consumption (hours):</label>
+         <input type="number" id="time" value="0"><br><br>
+
+         <button onclick="calculate()">Calculate</button>
+
+         <!-- Display results -->
+          <p id="output"></p>
+          <script>
+            function calculate() {
+                // Get input from user
+                const dose = parseFloat(document.getElementById("dose").value);
+                const halfLife = parseFloat(document.getElementById("halflife").value);
+                const time = parseFloat(document.getElementById("time").value);
+
+                //Formula: Remaining = Initial x (0.5)^(t / half-life)
+                const remaining = dose * Math.pow(0.5, time / halfLife);
+
+                // Show results in browser
+                document.getElementById("output").innerText =  
+        `Estimated THC remaining: ${remaining.toFixed(2)} mg`;
+            }
+          </script>
+    </body>
+</html>
