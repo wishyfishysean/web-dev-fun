@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="ChristmassLights.css">
+</head>
+<body>
+    <ul class="Lightrope">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<div class="controls">
+    <button id="toggleBtn">On/Off</button>
+    <label for="speedControl">Speed:</label>
+    <input type="range" id="speedcontrol" min="0.2" max="3" step="0.1" value="1">
+
+    <script>
+  const toggleBtn = document.getElementById("toggleBtn");
+  const speedControl = document.getElementById("speedControl");
+  const bulbs = document.querySelectorAll(".Lightrope li");
+
+  let running = true;
+
+  // Toggle animations
+  toggleBtn.addEventListener("click", () => {
+    running = !running;
+    bulbs.forEach(bulb => {
+      bulb.style.animationPlayState = running ? "running" : "paused";
+    });
+    toggleBtn.textContent = running ? "Stop Lights" : "Start Lights";
+  });
+
+  // Adjust speed dynamically
+  speedControl.addEventListener("input", () => {
+    const speed = speedControl.value;
+    bulbs.forEach(bulb => {
+      bulb.style.animationDuration = (parseFloat(getComputedStyle(bulb).animationDuration) / speed) + "s";
+    });
+  });
+</script>
+
+</div>
+</body>
+</html>
