@@ -1,0 +1,17 @@
+## LocalNotes
+
+Created a Online Notes app that used user Localstorage to store the notes. This was done as a learning experience.
+
+---
+
+## Features
+   - User can create a note
+   - User can edit a note
+   - User can delete a note
+   - When closing the browser window the notes will be stored and when the User returns, the data will be retrieved
+
+## ⚡ Getting Started
+
+https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Notes-App.md
+
+Project CURE_BRAIN_DEADNESS
