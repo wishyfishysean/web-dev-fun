@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CauseEffect - People List</title>
+  <style>
+    body {
+      background: #f4f4f9;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .container {
+      display: flex;
+      width: 80%;
+      margin: auto;
+      margin-top: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .summary-pane {
+      width: 30%;
+      border-right: 2px solid #ddd;
+      background: #fff;
+    }
+
+    .summary-pane ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .summary-pane li {
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+
+    .summary-pane li:hover {
+      background: #f0f0f0;
+    }
+
+    .detail-pane {
+      width: 70%;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .detail-pane h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>CauseEffect Demo</h1>
+  <div class="container">
+    <div class="summary-pane">
+      <ul id="nameList"></ul>
+    </div>
+    <div class="detail-pane" id="detailPane">
+      <h2>Select a person</h2>
+      <p>Details will appear here.</p>
+    </div>
+  </div>
+
+  <script>
+    // Hardcoded test data
+    const people = [
+      {
+        fullName: "Alice Johnson",
+        address: "123 Main St, Springfield",
+        phone: "555-1234",
+        birthday: "1990-04-15"
+      },
+      {
+        fullName: "Bob Smith",
+        address: "456 Oak Ave, Rivertown",
+        phone: "555-5678",
+        birthday: "1985-09-22"
+      },
+      {
+        fullName: "Carol Lee",
+        address: "789 Pine Rd, Lakeview",
+        phone: "555-9012",
+        birthday: "1992-12-05"
+      }
+    ];
+
+    const nameList = document.getElementById("nameList");
+    const detailPane = document.getElementById("detailPane");
+
+    // Fill the list with names
+    people.forEach((person, index) => {
+      const li = document.createElement("li");
+      li.textContent = person.fullName;
+      li.addEventListener("click", () => showDetails(index));
+      nameList.appendChild(li);
+    });
+
+    // Function to display details
+    function showDetails(index) {
+      const person = people[index];
+      detailPane.innerHTML = `
+        <h2>${person.fullName}</h2>
+        <p><strong>Address:</strong> ${person.address}</p>
+        <p><strong>Phone:</strong> ${person.phone}</p>
+        <p><strong>Birthday:</strong> ${person.birthday}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
