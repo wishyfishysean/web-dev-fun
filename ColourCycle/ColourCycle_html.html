@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ColorCycle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+    }
+    #colorBox {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      border: 2px solid #333;
+    }
+    .inputs {
+      margin: 10px;
+    }
+    input {
+      width: 40px;
+      text-align: center;
+    }
+    #warning {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ColorCycle</h1>
+
+  <div class="inputs">
+    <label>R: <input id="red" value="00"></label>
+    <label>G: <input id="green" value="00"></label>
+    <label>B: <input id="blue" value="00"></label>
+  </div>
+
+  <div class="inputs">
+    <label>ΔR: <input id="incRed" value="01"></label>
+    <label>ΔG: <input id="incGreen" value="01"></label>
+    <label>ΔB: <input id="incBlue" value="01"></label>
+  </div>
+
+  <button id="toggleBtn">Start</button>
+
+  <div id="colorBox"></div>
+  <div id="warning"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
