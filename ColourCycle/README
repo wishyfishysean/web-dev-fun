@@ -1,0 +1,27 @@
+# 🎨 ColorCycle
+
+**Tier: 1 — Beginner**
+
+ColorCycle is a simple web app that demonstrates how small changes in RGB values affect color and, in turn, user interface and user experience (UI/UX).  
+It allows users to experiment with color transitions by starting with a chosen color and applying gradual changes over time.
+
+---
+
+## 📌 Overview
+- Users specify a starting fill color using a standard **6-digit CSS hex code** (`#RRGGBB`).
+- The app displays a box filled with this color and modifies it based on user-defined increments.
+- Every **0.25 seconds**, the chosen increments are added to the RGB components, creating a smooth color shift.
+- The effect helps users better understand the **visual impact of tweaking RGB values** in real time.
+
+---
+
+## 🧩 Features (User Stories)
+- ✅ Specify a starting fill color as a hex code (`#000000` format).  
+- ✅ Enter an increment value for each RGB component.  
+- ✅ Watch the box color update every 0.25s.  
+- ✅ Start/stop the color cycle with a toggle button (`Start` ↔ `Stop`).  
+- ✅ Modify color and increments only when stopped.  
+- ✅ Receive a warning if invalid (non-hexadecimal) input is entered.  
+
+---
+#NOTE - I know not how Javascript be written - ChatGPT wrote the js and improved my readme. I'm sorry
