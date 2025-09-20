@@ -18,3 +18,15 @@ It blends **storytelling, interactivity, and design** into a space that feels pa
 - 🌀 **Interactivity** — Salvage quotes, images, or sounds to assemble custom futures.  
 - 🧬 **Dream Generator** — Merge two forgotten futures into a surreal hybrid (e.g. *Clockwork Jellyfish Civilizations*).  
 - 🔮 **Living Archive** — Pages mutate or vanish, ensuring each visit is unique.  
+
+
+## Please note
+This single HTML file uses Tailwind CSS for all styling and a simple JavaScript script to handle the dynamic content. 
+When you click "Travel Beyond," it displays one of several pre-defined alternate futures, complete with a story and fragments. 
+The "Salvage Fragments" and "Dream Generator" buttons will manipulate the content on the page, 
+simulating the more complex features you requested.
+
+The retro-futuristic aesthetic is created using a dark color scheme, a monospace font, glowing text, and terminal-like borders. 
+The layout is fully responsive, adapting to different screen sizes.
+
+TAILWIND AND JS WRITTEN BY GEMINI
