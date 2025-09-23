@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Dream Cartographer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cinzel', serif;
+      background: radial-gradient(circle at center, #0a0a1a, #000);
+      color: #f0f0f0;
+      overflow: hidden;
+    }
+    #map {
+      width: 100vw;
+      height: 100vh;
+      cursor: crosshair;
+      position: relative;
+    }
+    .pin {
+      width: 10px;
+      height: 10px;
+      background: gold;
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    #description {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      max-width: 300px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="description">Click anywhere to chart a dream...</div>
+  
+  <script>
+    const map = document.getElementById('map');
+    const desc = document.getElementById('description');
+    const dreams = [
+      "🌌 The Valley of Forgotten Footsteps, where echoes live forever.",
+      "🌊 A city carved from seashells, glowing with bioluminescence.",
+      "🔥 The Clockwork Desert, where the sand ticks like gears."
+    ];
+    
+    map.addEventListener('click', (e) => {
+      const pin = document.createElement('div');
+      pin.className = 'pin';
+      pin.style.left = e.clientX + 'px';
+      pin.style.top = e.clientY + 'px';
+      map.appendChild(pin);
+
+      const randomDream = dreams[Math.floor(Math.random() * dreams.length)];
+      desc.textContent = randomDream;
+    });
+  </script>
+</body>
+</html>

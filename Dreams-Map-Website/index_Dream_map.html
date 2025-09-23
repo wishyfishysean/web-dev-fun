@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Dream Cartographer</title>
+  <style>
+    /* --- Base styling --- */
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: radial-gradient(circle at center, #0a0a1a, #000);
+      color: #f0f0f0;
+      overflow: hidden;
+      transition: background 1s;
+    }
+    #map {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      cursor: crosshair;
+    }
+    .pin {
+      width: 10px;
+      height: 10px;
+      background: gold;
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    #description {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      max-width: 320px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      background: #333;
+      color: #eee;
+      border: 1px solid #555;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #555;
+    }
+    /* --- Mood layers --- */
+    body.hopeful { background: radial-gradient(circle, #223344, #001); }
+    body.melancholic { background: radial-gradient(circle, #2a1a2a, #000); }
+    body.chaotic { background: radial-gradient(circle, #331a1a, #111); }
+
+    /* --- Fading worlds --- */
+    .faded { opacity: 0.3; }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <button onclick="setMood('hopeful')">Hopeful</button>
+    <button onclick="setMood('melancholic')">Melancholic</button>
+    <button onclick="setMood('chaotic')">Chaotic</button>
+    <button onclick="addDreamPrompt()">Add Dream</button>
+  </div>
+
+  <div id="map"></div>
+  <div id="description">Click anywhere to chart a dream...</div>
+
+  <script>
+    const map = document.getElementById('map');
+    const desc = document.getElementById('description');
+
+    // Default dream pool
+    let dreams = JSON.parse(localStorage.getItem('dreams')) || [
+      { text: "🌌 The Valley of Forgotten Footsteps, where echoes live forever.", created: Date.now() },
+      { text: "🌊 A city carved from seashells, glowing with bioluminescence.", created: Date.now() },
+      { text: "🔥 The Clockwork Desert, where the sand ticks like gears.", created: Date.now() }
+    ];
+
+    // --- Mood switching ---
+    function setMood(mood) {
+      document.body.className = mood;
+    }
+
+    // --- Visitor input ---
+    function addDreamPrompt() {
+      const input = prompt("Enter your dream location:");
+      if (input) {
+        dreams.push({ text: input, created: Date.now() });
+        localStorage.setItem('dreams', JSON.stringify(dreams));
+        alert("Your dream has been added to the map ✨");
+      }
+    }
+
+    // --- Click map to place pins ---
+    map.addEventListener('click', (e) => {
+      const pin = document.createElement('div');
+      pin.className = 'pin';
+      pin.style.left = e.clientX + 'px';
+      pin.style.top = e.clientY + 'px';
+      map.appendChild(pin);
+
+      // Pick a dream
+      const validDreams = filterDreams();
+      const dream = validDreams[Math.floor(Math.random() * validDreams.length)];
+      desc.textContent = dream.text;
+
+      // Fade pin if old
+      if (isOld(dream)) {
+        pin.classList.add('faded');
+      }
+    });
+
+    // --- Helpers for fading worlds ---
+    function isOld(dream) {
+      const oneWeek = 1000 * 60 * 60 * 24 * 7;
+      return (Date.now() - dream.created) > oneWeek;
+    }
+
+    function filterDreams() {
+      return dreams.filter(d => {
+        // keep even old ones but mark them faded
+        return true;
+      });
+    }
+  </script>
+</body>
+</html>
