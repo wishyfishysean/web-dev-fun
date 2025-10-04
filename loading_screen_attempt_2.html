@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Loading Screen Attempt — Fixed</title>
+  <style>
+    /* make sizing predictable */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* Centering */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      padding: 1rem;
+      background: #fff;
+      color: #222;
+    }
+
+    .loading {
+      max-width: 60%;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column; /* stacked by default */
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Slack-like horizontal layout: uncomment if you want spinner left of text */
+    /* .loading { flex-direction: row; align-items: center; gap: 1rem; } */
+
+    .loading__anim {
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      border: 5px solid rgba(189,189,189,0.25);
+      border-left-color: rgba(3,155,229,1);
+      border-top-color: rgba(3,155,229,1);
+      border-radius: 50%;
+      animation: rotate 600ms linear infinite;
+      flex-shrink: 0;
+    }
+
+    .loading__text { display: inline-block; }
+
+    .loading__author {
+      display: block;
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: rgba(90,90,90,0.85);
+      margin-top: 0.25rem;
+    }
+
+    @keyframes rotate { to { transform: rotate(1turn); } }
+
+    /* Respect reduced motion settings */
+    @media (prefers-reduced-motion: reduce) {
+      .loading__anim { animation: none; transform: rotate(0); }
+    }
+  </style>
+</head>
+<body>
+  <section class="loading" aria-live="polite">
+    <span class="loading__anim" role="img" aria-hidden="true"></span>
+
+    <span class="loading__text">
+      For new sidebar colour, click your workspace name, then Preferences &gt; Sidebar &gt; Theme
+      <span class="loading__author">— Your friends at Slack</span>
+    </span>
+  </section>
+</body>
+</html>
