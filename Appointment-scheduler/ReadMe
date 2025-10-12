@@ -1,0 +1,31 @@
+https://hackernoon.com/build-an-appointment-scheduler-using-react-twilio-and-cosmic-js-95377f6d1040
+
+
+# 📅 Simple Appointment Scheduler
+
+A lightweight appointment scheduling website built with **HTML**, **CSS**, and a bit of **JavaScript**.  
+No frameworks, no backend — just pure front-end logic and localStorage.
+
+---
+
+## ✨ What It Does
+- 🧍 Add appointments by entering **name**, **date**, and **time**  
+- 💾 Appointments are stored in **localStorage** (persist after reload)  
+- 📋 Displays a list of all upcoming appointments  
+- ⚠️ Prevents booking duplicate **date + time** slots  
+- ❌ Allows appointments to be **canceled** (removed from list and storage)
+
+---
+
+## 🚫 What It Doesn’t Do (Yet)
+- ❌ No backend or shared database (data stays in your browser only)  
+- ❌ No authentication (any visitor can add/cancel)  
+- ❌ No recurring appointments or advanced conflict detection  
+- ❌ Doesn’t handle time zones or working-hour limits  
+
+---
+
+## 🔮 Next Steps
+- 🕓 Replace free-form time entry with selectable **available slots**  
+- 📧 Add **email confirmations** for bookings  
+- 🎨 Improve styling and UX (calendar view, slot grids, animations)
