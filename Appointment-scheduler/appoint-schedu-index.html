@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Appointment Scheduler</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: default;
+    }
+    .appointments {
+      margin-top: 30px;
+    }
+    .appointment-item {
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Book an Appointment</h1>
+    <form id="appt-form">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" id="date" required />
+      </div>
+      <div class="form-group">
+        <label for="time">Time</label>
+        <input type="time" id="time" required />
+      </div>
+      <button type="submit">Schedule</button>
+    </form>
+
+    <div class="appointments">
+      <h2>Upcoming Appointments</h2>
+      <div id="appointments-list">
+        <!-- booked appointments will appear here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('appt-form');
+    const appointmentsList = document.getElementById('appointments-list');
+
+    // Load stored appointments from localStorage (so reloads don’t lose them)
+    let appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+
+    function saveAppointments() {
+      localStorage.setItem('appointments', JSON.stringify(appointments));
+    }
+
+    function renderAppointments() {
+      appointmentsList.innerHTML = '';  // clear
+      if (appointments.length === 0) {
+        appointmentsList.innerHTML = '<p>No appointments yet.</p>';
+        return;
+      }
+      appointments.forEach((appt, idx) => {
+        const div = document.createElement('div');
+        div.className = 'appointment-item';
+        div.textContent = `${appt.date} at ${appt.time} — ${appt.name}`;
+        // Optionally add a “Cancel” button
+        const btn = document.createElement('button');
+        btn.textContent = 'Cancel';
+        btn.style.marginTop = '5px';
+        btn.onclick = () => {
+          appointments.splice(idx, 1);
+          saveAppointments();
+          renderAppointments();
+        };
+        div.appendChild(btn);
+        appointmentsList.appendChild(div);
+      });
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      // Simple overlap check: disallow exact time & date duplicates
+      const conflict = appointments.some(ap => ap.date === date && ap.time === time);
+      if (conflict) {
+        alert('That slot is already booked. Choose another.');
+        return;
+      }
+
+      // Add appointment
+      appointments.push({ name, date, time });
+      saveAppointments();
+      renderAppointments();
+
+      // Reset form
+      form.reset();
+    });
+
+    // On startup
+    renderAppointments();
+  </script>
+</body>
+</html>
