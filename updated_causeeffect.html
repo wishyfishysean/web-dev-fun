@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CauseEffect - People Directory</title>
+  <style>
+    body {
+      background: #eef1f7;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      width: 85%;
+      margin: 30px auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .summary-pane {
+      width: 30%;
+      border-right: 2px solid #ddd;
+      background: #fafafa;
+    }
+
+    .summary-pane ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .summary-pane li {
+      padding: 14px 18px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      transition: all 0.2s ease;
+    }
+
+    .summary-pane li:hover {
+      background: #e0e7ff;
+    }
+
+    .summary-pane li.active {
+      background: #6366f1;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .detail-pane {
+      width: 70%;
+      padding: 25px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .detail-pane h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 8px 5px 0 0;
+      padding: 6px 12px;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #4f46e5;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>CauseEffect Demo - Interactive Directory</h1>
+  <div class="container">
+    <div class="summary-pane">
+      <ul id="nameList"></ul>
+    </div>
+
+    <div class="detail-pane" id="detailPane">
+      <h2>Select a person</h2>
+      <p>Details will appear here.</p>
+    </div>
+  </div>
+
+  <script>
+    // Sample people data
+    const people = [
+      { fullName: "Alice Johnson", address: "123 Main St, Springfield", phone: "555-1234", birthday: "1990-04-15" },
+      { fullName: "Bob Smith", address: "456 Oak Ave, Rivertown", phone: "555-5678", birthday: "1985-09-22" },
+      { fullName: "Carol Lee", address: "789 Pine Rd, Lakeview", phone: "555-9012", birthday: "1992-12-05" }
+    ];
+
+    const nameList = document.getElementById("nameList");
+    const detailPane = document.getElementById("detailPane");
+    let activeIndex = null;
+
+    // Populate names
+    people.forEach((person, index) => {
+      const li = document.createElement("li");
+      li.textContent = person.fullName;
+      li.addEventListener("click", () => showDetails(index));
+      nameList.appendChild(li);
+    });
+
+    // Show details function
+    function showDetails(index) {
+      const person = people[index];
+      activeIndex = index;
+
+      // Highlight selected name
+      document.querySelectorAll("#nameList li").forEach(li => li.classList.remove("active"));
+      nameList.children[index].classList.add("active");
+
+      // Update detail pane
+      detailPane.innerHTML = `
+        <div class="fade-in">
+          <h2>${person.fullName}</h2>
+          <p><strong>Address:</strong> ${person.address}</p>
+          <p><strong>Phone:</strong> ${person.phone}</p>
+          <p><strong>Birthday:</strong> ${person.birthday}</p>
+          <button class="btn" onclick="showAge(${index})">🎂 Show Age</button>
+          <button class="btn" onclick="clearDetails()">⬅ Back</button>
+        </div>
+      `;
+    }
+
+    // Calculate and show age
+    function showAge(index) {
+      const birthDate = new Date(people[index].birthday);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) age--;
+
+      alert(`${people[index].fullName} is ${age} years old.`);
+    }
+
+    // Reset the detail pane
+    function clearDetails() {
+      activeIndex = null;
+      document.querySelectorAll("#nameList li").forEach(li => li.classList.remove("active"));
+      detailPane.innerHTML = `
+        <div class="fade-in">
+          <h2>Select a person</h2>
+          <p>Details will appear here.</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
